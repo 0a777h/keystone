@@ -1,7 +1,7 @@
 BUILDTYPE='Release'
 
-# on MacOS, do not build universal binaries by default
-ARCH=''
+# on MacOS, build universal binaries by default
+ARCH='i386;x86_64'
 
 # by default we do NOT build 32bit on 64bit system
 LLVM_BUILD_32_BITS=0
@@ -23,9 +23,6 @@ while [ "$1" != "" ]; do
       ;;
     macos-no-universal)
       ARCH=''	# do not build MacOS universal binaries
-      ;;
-    macos-universal)
-      ARCH='i386;x86_64'	# build MacOS universal binaries
       ;;
     *)
       echo "ERROR: unknown parameter \"$1\""

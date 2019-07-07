@@ -8,7 +8,6 @@
 *.so.*
 *.exe
 *.dll
-*.dylib
 *.class
 *.jar
 *.pyc

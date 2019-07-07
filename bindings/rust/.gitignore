@@ -1,4 +1,3 @@
 Cargo.lock
-**/target/**
+target/
 *.bk
-keystone-sys/keystone

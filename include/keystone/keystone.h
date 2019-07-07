@@ -202,7 +202,6 @@ typedef enum ks_opt_value {
  NOTE: if you only care about returned value, but not major and minor values,
  set both @major & @minor arguments to NULL.
 */
-KEYSTONE_EXPORT
 unsigned int ks_version(unsigned int *major, unsigned int *minor);
 
 
@@ -213,7 +212,6 @@ unsigned int ks_version(unsigned int *major, unsigned int *minor);
 
  @return True if this library supports the given arch.
 */
-KEYSTONE_EXPORT
 bool ks_arch_supported(ks_arch arch);
 
 
@@ -227,7 +225,6 @@ bool ks_arch_supported(ks_arch arch);
  @return KS_ERR_OK on success, or other value on failure (refer to ks_err enum
    for detailed error).
 */
-KEYSTONE_EXPORT
 ks_err ks_open(ks_arch arch, int mode, ks_engine **ks);
 
 
@@ -243,7 +240,6 @@ ks_err ks_open(ks_arch arch, int mode, ks_engine **ks);
  @return KS_ERR_OK on success, or other value on failure (refer to ks_err enum
    for detailed error).
 */
-KEYSTONE_EXPORT
 ks_err ks_close(ks_engine *ks);
 
 
@@ -255,7 +251,6 @@ ks_err ks_close(ks_engine *ks);
 
  @return: error code of ks_err enum type (KS_ERR_*, see above)
 */
-KEYSTONE_EXPORT
 ks_err ks_errno(ks_engine *ks);
 
 
@@ -267,7 +262,6 @@ ks_err ks_errno(ks_engine *ks);
  @return: returns a pointer to a string that describes the error code
    passed in the argument @code
  */
-KEYSTONE_EXPORT
 const char *ks_strerror(ks_err code);
 
 
@@ -281,7 +275,6 @@ const char *ks_strerror(ks_err code);
  @return: KS_ERR_OK on success, or other value on failure.
  Refer to ks_err enum for detailed error.
 */
-KEYSTONE_EXPORT
 ks_err ks_option(ks_engine *ks, ks_opt_type type, size_t value);
 
 
@@ -309,7 +302,6 @@ ks_err ks_option(ks_engine *ks, ks_opt_type type, size_t value);
 
  On failure, call ks_errno() for error code.
 */
-KEYSTONE_EXPORT
 int ks_asm(ks_engine *ks,
         const char *string,
         uint64_t address,
@@ -322,7 +314,6 @@ int ks_asm(ks_engine *ks,
 
  @p: memory allocated in @encoding argument of ks_asm()
 */
-KEYSTONE_EXPORT
 void ks_free(unsigned char *p);
 
 

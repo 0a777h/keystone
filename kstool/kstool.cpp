@@ -68,6 +68,7 @@ static void usage(char *prog)
     if (ks_arch_supported(KS_ARCH_SPARC)) {
         printf("        sparc:     Sparc - little endian\n");
         printf("        sparcbe:   Sparc - big endian\n");
+        printf("        sparc64:   Sparc64 - little endian\n");
         printf("        sparc64be: Sparc64 - big endian\n");
     }
 
@@ -90,7 +91,7 @@ int main(int argc, char **argv)
     uint64_t start_addr = 0;
     char *input = NULL;
     size_t count;
-    unsigned char *insn = NULL;
+    unsigned char *insn;
     size_t size;
 
     if (argc == 2) {
@@ -108,7 +109,7 @@ int main(int argc, char **argv)
         fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
 
         while(fgets(buf, sizeof(buf), stdin)) {
-            input = (char*)realloc(input, index + strlen(buf));
+            input = (char*)realloc(assembly, index + strlen(buf));
             if (!input) {
                 printf("Failed to allocate memory.");
                 return 1;
@@ -272,6 +273,10 @@ int main(int argc, char **argv)
         err = ks_open(KS_ARCH_SPARC, KS_MODE_SPARC32+KS_MODE_BIG_ENDIAN, &ks);
     }
 
+    if (!strcmp(mode, "sparc64")) {
+        err = ks_open(KS_ARCH_SPARC, KS_MODE_SPARC64+KS_MODE_LITTLE_ENDIAN, &ks);
+    }
+
     if (!strcmp(mode, "sparc64be")) {
         err = ks_open(KS_ARCH_SPARC, KS_MODE_SPARC64+KS_MODE_BIG_ENDIAN, &ks);
     }
@@ -303,9 +308,7 @@ int main(int argc, char **argv)
     }
 
     // NOTE: free insn after usage to avoid leaking memory
-    if (insn != NULL) {
-        ks_free(insn);
-    }
+    ks_free(insn);
 
     // close Keystone instance when done
     ks_close(ks);

@@ -25,7 +25,7 @@
 using namespace llvm_ks;
 
 
-KEYSTONE_EXPORT
+
 unsigned int ks_version(unsigned int *major, unsigned int *minor)
 {
     if (major != NULL && minor != NULL) {
@@ -37,14 +37,14 @@ unsigned int ks_version(unsigned int *major, unsigned int *minor)
 }
 
 
-KEYSTONE_EXPORT
+
 ks_err ks_errno(ks_engine *ks)
 {
     return (ks_err)ks->errnum;
 }
 
 
-KEYSTONE_EXPORT
+
 const char *ks_strerror(ks_err code)
 {
     switch(code) {
@@ -148,7 +148,7 @@ const char *ks_strerror(ks_err code)
 }
 
 
-KEYSTONE_EXPORT
+
 bool ks_arch_supported(ks_arch arch)
 {
     switch (arch) {
@@ -249,7 +249,7 @@ static ks_err InitKs(int arch, ks_engine *ks, std::string TripleName)
 }
 
 
-KEYSTONE_EXPORT
+
 ks_err ks_open(ks_arch arch, int mode, ks_engine **result)
 {
     struct ks_struct *ks;
@@ -493,7 +493,7 @@ ks_err ks_open(ks_arch arch, int mode, ks_engine **result)
 }
 
 
-KEYSTONE_EXPORT
+
 ks_err ks_close(ks_engine *ks)
 {
     if (!ks)
@@ -501,7 +501,6 @@ ks_err ks_close(ks_engine *ks)
 
     if (ks->arch == KS_ARCH_EVM) {
         // handle EVM differently
-        delete ks;
         return KS_ERR_OK;
     }
 
@@ -519,10 +518,9 @@ ks_err ks_close(ks_engine *ks)
 }
 
 
-KEYSTONE_EXPORT
+
 ks_err ks_option(ks_engine *ks, ks_opt_type type, size_t value)
 {
-    ks->MAI->setRadix(16);
     switch(type) {
         case KS_OPT_SYNTAX:
             if (ks->arch != KS_ARCH_X86)
@@ -559,7 +557,7 @@ ks_err ks_option(ks_engine *ks, ks_opt_type type, size_t value)
 }
 
 
-KEYSTONE_EXPORT
+
 void ks_free(unsigned char *p)
 {
     free(p);
@@ -569,7 +567,7 @@ void ks_free(unsigned char *p)
  @return: 0 on success, or -1 on failure.
  On failure, call ks_errno() for error code.
 */
-KEYSTONE_EXPORT
+
 int ks_asm(ks_engine *ks,
         const char *assembly,
         uint64_t address,
